@@ -1,33 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 function App() {
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    fetch(`https://api.github.com/users`)
-    .then(response => response.json())
-    .then(setData);
-  }, []);
+  const [number, setNumber] = useReducer((number, newNumber) => number + newNumber, 0);
 
-  if (data) {
-    return (
-      <div>
-        <ul>
-          {data.map((user) => (
-            <li key={user.id}>
-              {user.login}
-            </li>
-          ))}
-        </ul>
-        <button onClick={() => setData([])}>Remove Data</button>
-      </div>
-    )
-  }
-
-  return <p>No Users</p>;
+  return (
+    <h1 onClick={() => setNumber(1)}>{number}</h1>
+  )
 }
 
 ReactDOM.render(
