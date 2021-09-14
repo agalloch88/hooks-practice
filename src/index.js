@@ -1,44 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { FaStar } from "react-icons/fa";
-
-// creates array of stars, value of which can be manipulated and changed
-
-const createArray = (length) => [...Array(length)];
-
-// function for each individual star. starts as gray, when chlicked onSelect fires and changes color to red
-
-function Star({ selected = false, onSelect }) {
-  return (
-    <FaStar 
-      color={selected ? "red" : "gray"}
-      onClick={onSelect}  
-    />
-  );
-}
-
-function StarRating({ totalStars = 5 }) {
-  // useState manages the selection and counting of stars and dynamically updates
-  const [selectedStars, setSelectedStars] = useState(0);
-
-  return (
-    <>
-      {createArray(totalStars).map((n, i) => 
-        (<Star 
-          key={i} 
-          selected={selectedStars > i}
-          onSelect={() => setSelectedStars(i + 1)}
-        />
-      ))}
-      <p>{selectedStars} of {totalStars}</p>
-    </>
-  );
-}
 
 function App() {
-  return <StarRating totalStars={10} />;
+  const [name, setName] = useState("Jan");
+  const [admin, setAdmin] = useState(false);
+
+  useEffect(() => {
+    document.title = `Celebrate ${name}`
+  }, [name]);
+
+  useEffect(() => {
+    console.log(`The user is: ${admin ? "admin" : "not admin"}.`);
+  }, [admin]);
+
+  return (
+    <section>
+      <p>Congratulations {name}!</p>
+      <button onClick={() => setName("Will")}>Change Winner</button>
+      <p>{admin ? "logged in" : "not logged in"}</p>
+      <button onClick={() => setAdmin(true)}>Log In</button>
+    </section>
+  )
 }
 
 ReactDOM.render(
