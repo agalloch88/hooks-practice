@@ -5,16 +5,30 @@ import reportWebVitals from './reportWebVitals';
 
 function App() {
 
-  const [checked, toggle] = useReducer((checked) => !checked, false);
+  const initialState = {
+    message: "hi"
+  }
+
+  function reducer(state, action) {
+    switch(action.type) {
+      case "yell":
+        return {
+          message: `HEY! I JUST SAID ${state.message}!`
+        }
+      case "whisper":
+        return {
+          message: `excuse me, i just said ${state.message}.`
+        }
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <>
-      <input 
-        type="checkbox"
-        value={checked}
-        onChange={toggle}
-      />
-      <p>{checked ? "checked" : "not checked"}</p>
+      <p>Message: {state.message}</p>
+      <button onClick={() => dispatch({type: "yell"})}>YELL</button>
+      <button onClick={() => dispatch({type: "whisper"})}>whisper</button>
     </>
   )
 }
