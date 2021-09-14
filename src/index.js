@@ -5,10 +5,17 @@ import reportWebVitals from './reportWebVitals';
 
 function App() {
 
-  const [number, setNumber] = useReducer((number, newNumber) => number + newNumber, 0);
+  const [checked, toggle] = useReducer((checked) => !checked, false);
 
   return (
-    <h1 onClick={() => setNumber(1)}>{number}</h1>
+    <>
+      <input 
+        type="checkbox"
+        value={checked}
+        onChange={toggle}
+      />
+      <p>{checked ? "checked" : "not checked"}</p>
+    </>
   )
 }
 
